@@ -1,33 +1,52 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
-
-const users = [{ userName: "Lucas"}];
+import DatabaseError from "../models/errors/database.error.model";
+import userRepository from "../repositories/user.repository";
 
 const userRoute = Router();
 
-userRoute.get("/users", (req: Request, res: Response, next: NextFunction) => {
+//GET
+userRoute.get("/users", async (req: Request, res: Response, next: NextFunction) => {
+    const users = await userRepository.findAllUsers();
     res.status(StatusCodes.OK).send(users);
 });
 
-userRoute.get("/users/:uid", (req: Request<{ uid: string }>, res: Response, next: NextFunction) => {
-    const uid = req.params.uid;
-    res.status(StatusCodes.OK).send({uid});
+//GET by ID
+userRoute.get("/users/:uuid", async (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+    try{
+        const uuid = req.params.uuid;
+    
+        const userId = await userRepository.findById(uuid);
+        res.status(StatusCodes.OK).send({userId});
+    } catch(error){
+        next(error);
+    }
 });
 
-userRoute.post("/users", (req: Request, res: Response, next: NextFunction) => {
+//POST-INSERT
+userRoute.post("/users", async (req: Request, res: Response, next: NextFunction) => {
     const newUser = req.body;
+
+    const uuid = await userRepository.createUser(newUser);
     console.log(req.body);
-    res.status(StatusCodes.CREATED).send(newUser);
+    res.status(StatusCodes.CREATED).send(uuid);
 });
 
-userRoute.put("/users/:uid", (req: Request<{ uid: string}>, res: Response, next: NextFunction) => {
-    const uid = req.params.uid;
+//PUT-UPDATE by ID
+userRoute.put("/users/:uuid", async (req: Request<{ uuid: string}>, res: Response, next: NextFunction) => {
+    const uuid = req.params.uuid;
     const modUser = req.body;
-    modUser.uid = uid;
-    res.status(StatusCodes.OK).send({modUser});
+    modUser.uuid = uuid;
+
+    await userRepository.updateUser(modUser);
+    res.status(StatusCodes.OK).send();
 });
 
-userRoute.delete("/users/:uid", (req: Request<{ uid: string}>, res: Response, next: NextFunction) => {
+//DELETE by ID
+userRoute.delete("/users/:uuid", async (req: Request<{ uuid: string}>, res: Response, next: NextFunction) => {
+    const uuid = req.params.uuid;
+
+    await userRepository.removeUser(uuid);
     res.sendStatus(StatusCodes.OK);
 });
 

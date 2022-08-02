@@ -7,3 +7,5 @@ Projeto realizado durante o Bootcamp DIO: Impulso Javascript Evolution para cria
 - Express
 - Arquitetura REST
 - Typescript
+- Implementação de um Banco de Dados Relacional (PostgreSQL) através do ElephantSQL
+- Tratamento de erros através de middleware
