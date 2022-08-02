@@ -2,6 +2,13 @@
 
 Projeto realizado durante o Bootcamp DIO: Impulso Javascript Evolution para criar uma API de microsserviços.
 
+Possui os métodos CRUD para Usuários:
+- GET /users
+- GET /users/:uuid
+- POST /users
+- PUT /users/:uuid
+- DELETE /users/:uuid
+
 ## Conteúdo:
 - Node.js
 - Express
