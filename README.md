@@ -9,7 +9,8 @@ Possui os métodos CRUD para Usuários:
 - PUT /users/:uuid
 - DELETE /users/:uuid
 
-Método de autenticação através de token JWT
+Método de autenticação através de token JWT:
+- Basic authentication em /token, retornando o token JWT para validação Bearer - necessário para acessar os métodos CRUD
 
 ## Conteúdo:
 - Node.js
