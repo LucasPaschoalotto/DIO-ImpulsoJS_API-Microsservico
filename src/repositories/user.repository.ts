@@ -69,6 +69,25 @@ class UserRepository{
         await db.query(removeScript, removeValues);
     }
     
+    async findByUsernameAndPassword(username: string, password: string): Promise<User | null> {
+        try{
+            const queryUserPass = `
+            SELECT uuid, username
+            FROM application_users
+            WHERE username = $1
+            AND password = crypt($2, '159753')
+            `;
+            const queryUserPassValues = [username, password];
+    
+            const {rows} = await db.query<User>(queryUserPass, queryUserPassValues);
+            const [user] = rows;
+            return user || null;
+        } catch(error){
+            throw new DatabaseError("Erro na consulta por username e password", error);
+        }
+
+    }
+    
 }
 
 export default new UserRepository();

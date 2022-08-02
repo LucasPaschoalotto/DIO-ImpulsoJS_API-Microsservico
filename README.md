@@ -9,10 +9,13 @@ Possui os métodos CRUD para Usuários:
 - PUT /users/:uuid
 - DELETE /users/:uuid
 
+Método de autenticação através de token JWT
+
 ## Conteúdo:
 - Node.js
 - Express
-- Arquitetura REST
 - Typescript
-- Implementação de um Banco de Dados Relacional (PostgreSQL) através do ElephantSQL
+- Arquitetura REST
+- Implementação de um Banco de Dados Relacional (PostgreSQL) através do ElephantSQL (hospedagem do DB em núvem)
 - Tratamento de erros através de middleware
+- Autenticação através de token JWT
