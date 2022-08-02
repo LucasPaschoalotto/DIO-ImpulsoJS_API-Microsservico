@@ -11,6 +11,7 @@ Possui os métodos CRUD para Usuários:
 
 Método de autenticação através de token JWT:
 - Basic authentication em /token, retornando o token JWT para validação Bearer - necessário para acessar os métodos CRUD
+- Validação do token em /token/validate
 
 ## Conteúdo:
 - Node.js
