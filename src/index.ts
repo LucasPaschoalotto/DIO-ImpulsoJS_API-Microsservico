@@ -1,8 +1,9 @@
 import express from "express";
+import bearerAuthenticationMiddleware from "./middleware/bearer-authentication.middleware";
 import errorHandler from "./middleware/error-handler.middleware";
 import authorizationRoute from "./routes/authorization.route";
 import statusRoute from "./routes/status.route";
-import userRoute from "./routes/users.route";
+import usersRoute from "./routes/users.route";
 
 const app = express();
 
@@ -11,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //Rotas
-app.use(userRoute);
 app.use(statusRoute);
+app.use(bearerAuthenticationMiddleware, usersRoute);
 app.use(authorizationRoute);
 
 //Error Handler

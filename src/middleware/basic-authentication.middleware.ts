@@ -16,14 +16,13 @@ async function basicAuthenticationMiddleware(req: Request, res: Response, next: 
             throw new ForbiddenError("Tipo de autenticação inválida");
         }
         const tokenContent = Buffer.from(token, "base64").toString("utf-8");
-        const [username, password] = tokenContent.split(":");
-        
+
+        const [username, password] = tokenContent.split(":");        
         if(!username || !password) {
             throw new ForbiddenError("Credenciais não preenchidas");
         }
 
         const user = await userRepository.findByUsernameAndPassword(username, password);
-
         if(!user){
             throw new ForbiddenError("Usuário ou senha inválidos");
         }
