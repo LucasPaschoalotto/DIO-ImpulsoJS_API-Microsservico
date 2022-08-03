@@ -1,6 +1,9 @@
 import db from "../db";
 import User from "../models/user.model";
 import DatabaseError from "../models/errors/database.error.model";
+import config from 'config';
+
+const authenticationCryptKey = config.get<string>('authentication.cryptKey');
 
 class UserRepository{
 
@@ -35,7 +38,7 @@ class UserRepository{
     async createUser(user: User): Promise<string> {
         const createScript = `
         INSERT INTO application_users (username, password)
-        VALUES ($1, crypt($2, '159753'))
+        VALUES ($1, crypt($2, '${authenticationCryptKey}'))
         RETURNING uuid
         `;
         const createValues = [user.username, user.password];
@@ -49,7 +52,7 @@ class UserRepository{
     async updateUser(user: User): Promise<void> {
         const updateScript = `
         UPDATE application_users
-        SET username = $1, password = crypt($2, '159753')
+        SET username = $1, password = crypt($2, '${authenticationCryptKey}')
         WHERE uuid = $3
         RETURNING 
         `;
@@ -75,7 +78,7 @@ class UserRepository{
             SELECT uuid, username
             FROM application_users
             WHERE username = $1
-            AND password = crypt($2, '159753')
+            AND password = crypt($2, '${authenticationCryptKey}')
             `;
             const queryUserPassValues = [username, password];
     

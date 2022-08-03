@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS application_users(
     PRIMARY KEY (uuid)
 );
 
-INSERT INTO application_users (username, password) VALUES ('admin', crypt('passAdmin', '159753'));
-INSERT INTO application_users (username, password) VALUES ('User', crypt('passUser', '159753'));
+INSERT INTO application_users (username, password) VALUES ('admin', crypt('passAdmin', '${authenticationCryptKey}'));
+INSERT INTO application_users (username, password) VALUES ('User', crypt('passUser', '${authenticationCryptKey}'));

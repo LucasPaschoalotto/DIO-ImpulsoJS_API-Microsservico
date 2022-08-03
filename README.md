@@ -21,3 +21,4 @@ Método de autenticação através de token JWT:
 - Implementação de um Banco de Dados Relacional (PostgreSQL) através do ElephantSQL (hospedagem do DB em núvem)
 - Tratamento de erros através de middleware
 - Autenticação (Basic e Bearer) através de token JWT
+- Database URI e Configuração crypto como variáveis de ambiente
